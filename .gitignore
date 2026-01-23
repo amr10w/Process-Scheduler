@@ -1,41 +1,58 @@
-# Prerequisites
-*.d
+# --- OS & IDE Files ---
+.DS_Store
+Thumbs.db
+.vscode/
+*.code-workspace
 
-# Compiled Object files
-*.slo
-*.lo
+# --- Build Directories ---
+build/
+bin/
+obj/
+out/
+dist/
+
+# --- C/C++ Object Files & Prerequisites ---
 *.o
 *.obj
+*.slo
+*.lo
+*.d
 
-# Precompiled Headers
-*.gch
-*.pch
-
-# Linker files
-*.ilk
-
-# Debugger Files
-*.pdb
-
-# Compiled Dynamic libraries
+# --- Libraries (Static & Dynamic) ---
 *.so
 *.dylib
 *.dll
-
-# Fortran module files
-*.mod
-*.smod
-
-# Compiled Static libraries
 *.lai
 *.la
 *.a
 *.lib
 
-# Executables
+# --- Executables ---
 *.exe
 *.out
 *.app
+# Keep this specific installer even though it is an .exe
+!ilovexml_installer.exe
 
-# debug information files
+# --- CMake & Make ---
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+
+# --- Debugger & Precompiled Headers ---
+*.gch
+*.pch
+*.ilk
+*.pdb
 *.dwo
+
+# --- Fortran ---
+*.mod
+*.smod
+
+# --- Logs, Temps & Backups ---
+*.log
+*.tmp
+*~
+*.bak
