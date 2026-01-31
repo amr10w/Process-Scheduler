@@ -34,115 +34,42 @@ class process
     process* RightChild;
   public:
     // Constructor
-    process(int id, int arrival, int cpu) : 
-        id(id), 
-        arrival_time(arrival),
-        CPU_time(cpu) 
-    {
-        this->remaining_time = CPU_time;
-        this->executed_time = 0;
-        state = NEW;
-        
-        // calculated later
-        response_time = -1;  
-        termination_time = 0;
-        turnaround_duration = 0;
-        waiting_time = 0;
-
-        ParentID = -1;
-        LeftChild = nullptr;
-        RightChild = nullptr;
-    }
+    process(int id, int arrival, int cpu);
 
     // Destructor
-    ~process() {}
+    ~process();
 
-    void executeStep() {
-        if (remaining_time > 0) {
-            remaining_time--;
-            executed_time++;
-        }
-    }
-    // --- Setters ---
-
-    void setTerminationTime(int time) {
-        termination_time = time;
-        calculateStats();
-    }
-
-    void setState(ProcessState newState) {
-        state = newState;
-    }
-
-    // setter for the whole list
-    void setIOList(const std::vector<std::pair<int, int>>& list) {
-        io_list = list;
-    }
-
-    // add just one IO pair instead of replacing the whole list
-    void addIO(int start, int duration) {
-        io_list.push_back({start, duration});
-    }
-
-    void setResponseTime(int currentTime) {
-        if (response_time == -1) { // Only set it the FIRST time the process runs
-            response_time = currentTime - arrival_time;
-        }
-    }
-    // --- Getters ---
-
-    int getId() {
-        return id;
-    }
-
-    int getArrivalTime() {
-        return arrival_time;
-    }
-
-    int getResponseTime() {
-        return response_time;
-    }
-
-    int getCPUTime() {
-        return CPU_time;
-    }
-
-    int getTerminationTime() {
-        return termination_time;
-    }
-
-    int getTurnaroundDuration() {
-        return turnaround_duration;
-    }
-
-    int getWaitingTime() {
-        return waiting_time;
-    }
-
-    ProcessState getState() {
-        return state;
-    }
+    void executeStep();
     
-
-    std::vector<std::pair<int, int>>& getIOList() {
-        return io_list;
-    }
-    int getRemainingTime() { return remaining_time; }
+    // --- Setters ---
+    void setTerminationTime(int time);
+    void setState(ProcessState newState);
+    void setIOList(const std::vector<std::pair<int, int>>& list);
+    void addIO(int start, int duration);
+    void setResponseTime(int currentTime);
+    
+    // --- Getters ---
+    int getId();
+    int getArrivalTime();
+    int getResponseTime();
+    int getCPUTime();
+    int getTerminationTime();
+    int getTurnaroundDuration();
+    int getWaitingTime();
+    ProcessState getState();
+    std::vector<std::pair<int, int>>& getIOList();
+    int getRemainingTime();
 
     //----------------stat calculations
-    void calculateStats() {
-        turnaround_duration = termination_time - arrival_time;
-        waiting_time = turnaround_duration - CPU_time;
-    }
+    void calculateStats();
 
     // ------- fork -------
-    void setParent(int pid) { ParentID = pid; }
-    int getParent() const { return ParentID; }
-
-    void setLeftChild(process* p) { LeftChild = p; }
-    void setRightChild(process* p) { RightChild = p; }
-    process* getLeftChild() const { return LeftChild; }
-    process* getRightChild() const { return RightChild; }
+    void setParent(int pid);
+    int getParent() const;
+    void setLeftChild(process* p);
+    void setRightChild(process* p);
+    process* getLeftChild() const;
+    process* getRightChild() const;
 };
 
 #endif
